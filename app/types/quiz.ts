@@ -1,4 +1,0 @@
-
-type QuizList = {
-    id: number
-}
