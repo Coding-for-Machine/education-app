@@ -1,0 +1,5 @@
+
+
+type Question = {
+    id: number
+}

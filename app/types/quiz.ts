@@ -1,0 +1,4 @@
+
+type QuizList = {
+    id: number
+}
