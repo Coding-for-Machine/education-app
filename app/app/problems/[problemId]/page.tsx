@@ -1,7 +1,6 @@
 "use client"
 
 import { Textarea } from "@/components/ui/textarea"
-
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
@@ -27,7 +26,6 @@ import {
   XCircle,
   CheckCircle,
 } from "lucide-react"
-
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -39,11 +37,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Separator } from "@/components/ui/separator"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { useCodemirror } from "@/hooks/use-codemirror"
+import Split from "react-split"
 
 export default function ProblemPage({ params }: { params: { problemId: string } }) {
   const editorRef = useRef<HTMLDivElement>(null)
   const [code, setCode] = useState(`def reverseString(s: list) -> list:
-    # Your solution here
+    # Yechimingizni shu yerga yozing
     return []`)
   const [language, setLanguage] = useState("python")
   const [fontSize, setFontSize] = useState("16px")
@@ -67,7 +66,7 @@ export default function ProblemPage({ params }: { params: { problemId: string } 
   const [activeTab, setActiveTab] = useState("description")
   const [activeTestTab, setActiveTestTab] = useState("test1")
 
-  // Initialize CodeMirror
+  // CodeMirror ni ishga tushirish
   useCodemirror({
     container: editorRef.current,
     value: code,
@@ -77,22 +76,22 @@ export default function ProblemPage({ params }: { params: { problemId: string } 
     fontSize,
   })
 
-  // In a real app, you would fetch the problem data based on the problemId
+  // Haqiqiy ilovada, problemId asosida muammo ma'lumotlarini olish kerak
   const problem = problems.find((p) => p.id.toString() === params.problemId) || problems[0]
 
   useEffect(() => {
     setIsLoaded(true)
 
-    // Set initial code based on the problem
+    // Muammoga asoslangan boshlang'ich kodni o'rnatish
     if (problem.id === 1) {
       // Reverse String
       setCode(`def reverseString(s: list) -> list:
-    # Your solution here
+    # Yechimingizni shu yerga yozing
     return []`)
     } else if (problem.id === 2) {
       // Two Sum
       setCode(`def twoSum(nums: list, target: int) -> list:
-    # Your solution here
+    # Yechimingizni shu yerga yozing
     return []`)
     }
   }, [problem.id])
@@ -100,15 +99,15 @@ export default function ProblemPage({ params }: { params: { problemId: string } 
   const handleLanguageChange = (value: string) => {
     setLanguage(value)
 
-    // Update initial code based on selected language
+    // Tanlangan tilga asoslangan boshlang'ich kodni yangilash
     if (value === "python") {
       if (problem.id === 1) {
         setCode(`def reverseString(s: list) -> list:
-    # Your solution here
+    # Yechimingizni shu yerga yozing
     return []`)
       } else if (problem.id === 2) {
         setCode(`def twoSum(nums: list, target: int) -> list:
-    # Your solution here
+    # Yechimingizni shu yerga yozing
     return []`)
       }
     } else if (value === "javascript") {
@@ -118,7 +117,7 @@ export default function ProblemPage({ params }: { params: { problemId: string } 
  * @return {void} Do not return anything, modify s in-place instead.
  */
 var reverseString = function(s) {
-    // Your solution here
+    // Yechimingizni shu yerga yozing
 };`)
       } else if (problem.id === 2) {
         setCode(`/**
@@ -127,20 +126,20 @@ var reverseString = function(s) {
  * @return {number[]}
  */
 var twoSum = function(nums, target) {
-    // Your solution here
+    // Yechimingizni shu yerga yozing
 };`)
       }
     } else if (value === "java") {
       if (problem.id === 1) {
         setCode(`class Solution {
     public void reverseString(char[] s) {
-        // Your solution here
+        // Yechimingizni shu yerga yozing
     }
 }`)
       } else if (problem.id === 2) {
         setCode(`class Solution {
     public int[] twoSum(int[] nums, int target) {
-        // Your solution here
+        // Yechimingizni shu yerga yozing
         return new int[]{};
     }
 }`)
@@ -150,14 +149,14 @@ var twoSum = function(nums, target) {
         setCode(`class Solution {
 public:
     void reverseString(vector<char>& s) {
-        // Your solution here
+        // Yechimingizni shu yerga yozing
     }
 };`)
       } else if (problem.id === 2) {
         setCode(`class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        // Your solution here
+        // Yechimingizni shu yerga yozing
         return {};
     }
 };`)
@@ -169,15 +168,15 @@ public:
     setIsRunning(true)
     setTestResults(null)
 
-    // Simulate code execution with a delay
+    // Kodni bajarishni simulyatsiya qilish
     setTimeout(() => {
       setIsRunning(false)
 
-      // Mock test results
+      // Test natijalarini mock qilish
       if (problem.id === 1 && (code.includes("return s[::-1]") || code.includes("return list(reversed(s))"))) {
         setTestResults({
           passed: true,
-          message: "All test cases passed!",
+          message: "Barcha test holatlari muvaffaqiyatli o'tdi!",
           time: "4 ms",
           memory: "13.8 MB",
           testCases: [
@@ -198,7 +197,7 @@ public:
       } else {
         setTestResults({
           passed: false,
-          message: "Some test cases failed",
+          message: "Ba'zi test holatlari muvaffaqiyatsiz tugadi",
           time: "N/A",
           memory: "N/A",
           testCases: [
@@ -224,15 +223,15 @@ public:
     setIsSubmitting(true)
     setTestResults(null)
 
-    // Simulate code submission with a delay
+    // Kodni yuborishni simulyatsiya qilish
     setTimeout(() => {
       setIsSubmitting(false)
 
-      // Mock submission results
+      // Yuborish natijalarini mock qilish
       if (problem.id === 1 && (code.includes("return s[::-1]") || code.includes("return list(reversed(s))"))) {
         setTestResults({
           passed: true,
-          message: "All test cases passed! Your solution beats 92% of submissions.",
+          message: "Barcha test holatlari muvaffaqiyatli o'tdi! Sizning yechimingiz topshiriqlarning 92% dan ustun.",
           time: "4 ms",
           memory: "13.8 MB",
           testCases: [
@@ -253,7 +252,7 @@ public:
       } else {
         setTestResults({
           passed: false,
-          message: "Some test cases failed",
+          message: "Ba'zi test holatlari muvaffaqiyatsiz tugadi",
           time: "N/A",
           memory: "N/A",
           testCases: [
@@ -311,11 +310,11 @@ public:
               className="flex items-center text-sm font-medium text-muted-foreground hover:text-foreground group"
             >
               <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-              Back to Problems
+              Muammolarga qaytish
             </Link>
             <Separator orientation="vertical" className="h-4" />
             <div className="flex items-center gap-1 text-sm">
-              <span className="text-muted-foreground">Problem:</span>
+              <span className="text-muted-foreground">Muammo:</span>
               <span className="font-medium">{problem.id}</span>
             </div>
           </div>
@@ -328,7 +327,7 @@ public:
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Add to favorites</p>
+                  <p>Sevimlilarga qo'shish</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
@@ -341,10 +340,10 @@ public:
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem onClick={() => navigator.clipboard.writeText(window.location.href)}>
-                  Copy Link
+                  Havolani nusxalash
                 </DropdownMenuItem>
-                <DropdownMenuItem>Share on Twitter</DropdownMenuItem>
-                <DropdownMenuItem>Share on Facebook</DropdownMenuItem>
+                <DropdownMenuItem>Twitterda ulashish</DropdownMenuItem>
+                <DropdownMenuItem>Facebookda ulashish</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
@@ -378,30 +377,41 @@ public:
               </div>
             </div>
             {problem.status === "Solved" ? (
-              <Badge className="bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400">Solved</Badge>
+              <Badge className="bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400">Yechilgan</Badge>
             ) : problem.status === "Attempted" ? (
               <Badge className="bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400">
-                Attempted
+                Urunilgan
               </Badge>
             ) : null}
           </div>
         </motion.div>
 
-        <div className="grid gap-6 lg:grid-cols-2">
+        <Split
+          className="split flex flex-col lg:flex-row gap-6"
+          sizes={[50, 50]}
+          minSize={300}
+          expandToMin={false}
+          gutterSize={10}
+          gutterAlign="center"
+          snapOffset={30}
+          dragInterval={1}
+          direction="horizontal"
+          cursor="col-resize"
+        >
           <motion.div variants={item} className="space-y-4">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <TabsList className="grid w-full grid-cols-4">
                 <TabsTrigger value="description" className="text-xs sm:text-sm">
-                  Description
+                  Tavsif
                 </TabsTrigger>
                 <TabsTrigger value="solution" className="text-xs sm:text-sm">
-                  Solution
+                  Yechim
                 </TabsTrigger>
                 <TabsTrigger value="submissions" className="text-xs sm:text-sm">
-                  Submissions
+                  Topshiriqlar
                 </TabsTrigger>
                 <TabsTrigger value="discussion" className="text-xs sm:text-sm">
-                  Discussion
+                  Muhokama
                 </TabsTrigger>
               </TabsList>
               <TabsContent value="description" className="pt-4">
@@ -410,25 +420,25 @@ public:
                     <div className="prose dark:prose-invert max-w-none">
                       <p>{problem.description}</p>
 
-                      <h3 className="text-lg font-semibold mt-4">Function Signature</h3>
+                      <h3 className="text-lg font-semibold mt-4">Funksiya imzosi</h3>
                       <div className="bg-muted/50 p-3 rounded-md font-mono text-sm overflow-x-auto">
                         {problem.functionSignature}
                       </div>
 
-                      <h3 className="text-lg font-semibold mt-4">Examples</h3>
+                      <h3 className="text-lg font-semibold mt-4">Misollar</h3>
                       <div className="space-y-4">
                         {problem.examples.map((example, index) => (
                           <div key={index} className="bg-muted/50 p-4 rounded-md">
                             <div className="font-mono text-sm">
                               <div className="mb-2">
-                                <span className="font-semibold">Input:</span> {example.input}
+                                <span className="font-semibold">Kirish:</span> {example.input}
                               </div>
                               <div className="mb-2">
-                                <span className="font-semibold">Output:</span> {example.output}
+                                <span className="font-semibold">Chiqish:</span> {example.output}
                               </div>
                               {example.explanation && (
                                 <div>
-                                  <span className="font-semibold">Explanation:</span> {example.explanation}
+                                  <span className="font-semibold">Tushuntirish:</span> {example.explanation}
                                 </div>
                               )}
                             </div>
@@ -436,7 +446,7 @@ public:
                         ))}
                       </div>
 
-                      <h3 className="text-lg font-semibold mt-4">Constraints</h3>
+                      <h3 className="text-lg font-semibold mt-4">Cheklovlar</h3>
                       <ul className="list-disc pl-5 space-y-1">
                         {problem.constraints.map((constraint, index) => (
                           <li key={index} className="font-mono text-sm">
@@ -447,7 +457,7 @@ public:
 
                       {problem.followUp && (
                         <>
-                          <h3 className="text-lg font-semibold mt-4">Follow-up</h3>
+                          <h3 className="text-lg font-semibold mt-4">Keyingi qadam</h3>
                           <p>{problem.followUp}</p>
                         </>
                       )}
@@ -458,7 +468,7 @@ public:
                         <AccordionTrigger className="text-primary">
                           <div className="flex items-center gap-2">
                             <Lightbulb className="h-4 w-4" />
-                            <span>Hints</span>
+                            <span>Maslahatlar</span>
                           </div>
                         </AccordionTrigger>
                         <AccordionContent>
@@ -471,7 +481,7 @@ public:
                                 onClick={() => setShowHint(index)}
                                 className="w-full justify-between"
                               >
-                                <span>Hint {index + 1}</span>
+                                <span>Maslahat {index + 1}</span>
                                 <ChevronDown
                                   className={`h-4 w-4 transition-transform ${showHint === index ? "rotate-180" : ""}`}
                                 />
@@ -491,7 +501,7 @@ public:
                         <AccordionTrigger className="text-primary">
                           <div className="flex items-center gap-2">
                             <ListChecks className="h-4 w-4" />
-                            <span>Related Problems</span>
+                            <span>Tegishli muammolar</span>
                           </div>
                         </AccordionTrigger>
                         <AccordionContent>
@@ -531,15 +541,15 @@ public:
                 <div className="flex items-center justify-between mt-4">
                   <div className="flex items-center gap-2">
                     <Button variant="outline" size="sm" className="gap-1">
-                      <ThumbsUp className="h-4 w-4" /> Helpful
+                      <ThumbsUp className="h-4 w-4" /> Foydali
                     </Button>
                     <Button variant="outline" size="sm" className="gap-1">
-                      <ThumbsDown className="h-4 w-4" /> Not Helpful
+                      <ThumbsDown className="h-4 w-4" /> Foydali emas
                     </Button>
                   </div>
                   <div className="text-sm text-muted-foreground">
                     <Link href="#" className="hover:underline flex items-center gap-1">
-                      <ExternalLink className="h-3.5 w-3.5" /> View Editorial
+                      <ExternalLink className="h-3.5 w-3.5" /> Tahririyatni ko'rish
                     </Link>
                   </div>
                 </div>
@@ -548,7 +558,7 @@ public:
               <TabsContent value="solution" className="pt-4">
                 <Card className="border-none shadow-md">
                   <CardHeader>
-                    <CardTitle className="text-lg">Solution Approaches</CardTitle>
+                    <CardTitle className="text-lg">Yechim usullari</CardTitle>
                   </CardHeader>
                   <CardContent className="p-6">
                     <Accordion type="single" collapsible>
@@ -556,9 +566,9 @@ public:
                         <AccordionTrigger>
                           <div className="flex flex-col items-start">
                             <div className="flex items-center gap-2">
-                              <span className="font-medium">Approach 1: In-place Reversal</span>
+                              <span className="font-medium">Usul 1: Joyda teskari aylantirish</span>
                               <Badge variant="outline" className="ml-2">
-                                O(n) Time, O(1) Space
+                                O(n) Vaqt, O(1) Xotira
                               </Badge>
                             </div>
                           </div>
@@ -566,10 +576,10 @@ public:
                         <AccordionContent>
                           <div className="space-y-4">
                             <p>
-                              We can solve this problem by using a two-pointer approach to reverse the array in-place.
-                              We'll initialize two pointers, one at the beginning and one at the end of the array, and
-                              swap the elements at these positions. Then we'll move the pointers towards each other
-                              until they meet in the middle.
+                              Ushbu muammoni hal qilish uchun ikki ko'rsatkichli yondashuvdan foydalanishimiz mumkin.
+                              Biz massivning boshi va oxirida ikkita ko'rsatkichni o'rnatamiz va ushbu pozitsiyalardagi
+                              elementlarni almashtiramiz. Keyin ko'rsatkichlarni o'rtada uchrashguncha bir-biriga
+                              yaqinlashtiramiz.
                             </p>
                             <div className="bg-muted/50 p-4 rounded-md font-mono text-sm">
                               <pre>{`def reverseString(s: list) -> list:
@@ -581,15 +591,15 @@ public:
     return s`}</pre>
                             </div>
                             <div className="bg-muted/30 p-4 rounded-md">
-                              <h4 className="font-medium mb-2">Complexity Analysis</h4>
+                              <h4 className="font-medium mb-2">Murakkablik tahlili</h4>
                               <ul className="list-disc pl-5 space-y-1 text-sm">
                                 <li>
-                                  <span className="font-medium">Time Complexity:</span> O(n), where n is the length of
-                                  the input array. We process each element exactly once.
+                                  <span className="font-medium">Vaqt murakkabligi:</span> O(n), bu yerda n kirish
+                                  massivining uzunligi. Har bir elementni bir marta qayta ishlaymiz.
                                 </li>
                                 <li>
-                                  <span className="font-medium">Space Complexity:</span> O(1), as we're modifying the
-                                  array in-place without using any extra space.
+                                  <span className="font-medium">Xotira murakkabligi:</span> O(1), chunki biz qo'shimcha
+                                  xotira ishlatmasdan massivni joyida o'zgartiramiz.
                                 </li>
                               </ul>
                             </div>
@@ -601,9 +611,9 @@ public:
                         <AccordionTrigger>
                           <div className="flex flex-col items-start">
                             <div className="flex items-center gap-2">
-                              <span className="font-medium">Approach 2: Python Built-in Methods</span>
+                              <span className="font-medium">Usul 2: Pythonning ichki usullari</span>
                               <Badge variant="outline" className="ml-2">
-                                O(n) Time, O(1) Space
+                                O(n) Vaqt, O(1) Xotira
                               </Badge>
                             </div>
                           </div>
@@ -611,29 +621,29 @@ public:
                         <AccordionContent>
                           <div className="space-y-4">
                             <p>
-                              Python provides several built-in methods to reverse a list. We can use either the slice
-                              notation with a negative step or the built-in reversed() function.
+                              Python ro'yxatni teskari aylantirish uchun bir nechta ichki usullarni taqdim etadi.
+                              Biz manfiy qadamli kesish yoki ichki reversed() funksiyasidan foydalanishimiz mumkin.
                             </p>
                             <div className="bg-muted/50 p-4 rounded-md font-mono text-sm">
-                              <pre>{`# Method 1: Using slice notation
+                              <pre>{`# 1-usul: Kesish yozuvidan foydalanish
 def reverseString(s: list) -> list:
     return s[::-1]
 
-# Method 2: Using reversed() function
+# 2-usul: reversed() funksiyasidan foydalanish
 def reverseString(s: list) -> list:
     return list(reversed(s))`}</pre>
                             </div>
                             <div className="bg-muted/30 p-4 rounded-md">
-                              <h4 className="font-medium mb-2">Complexity Analysis</h4>
+                              <h4 className="font-medium mb-2">Murakkablik tahlili</h4>
                               <ul className="list-disc pl-5 space-y-1 text-sm">
                                 <li>
-                                  <span className="font-medium">Time Complexity:</span> O(n), where n is the length of
-                                  the input array.
+                                  <span className="font-medium">Vaqt murakkabligi:</span> O(n), bu yerda n kirish
+                                  massivining uzunligi.
                                 </li>
                                 <li>
-                                  <span className="font-medium">Space Complexity:</span> O(n) for creating a new
-                                  reversed list. Note that if the problem requires in-place reversal, these methods
-                                  would not be appropriate.
+                                  <span className="font-medium">Xotira murakkabligi:</span> O(n) yangi teskari ro'yxat
+                                  yaratish uchun. Agar muammo joyida teskari aylantirishni talab qilsa, bu usullar
+                                  mos kelmaydi.
                                 </li>
                               </ul>
                             </div>
@@ -648,18 +658,18 @@ def reverseString(s: list) -> list:
               <TabsContent value="submissions" className="pt-4">
                 <Card className="border-none shadow-md">
                   <CardHeader>
-                    <CardTitle className="text-lg">Your Submissions</CardTitle>
+                    <CardTitle className="text-lg">Sizning topshiriqlaringiz</CardTitle>
                   </CardHeader>
                   <CardContent className="p-0">
                     <div className="rounded-md border">
                       <table className="w-full">
                         <thead>
                           <tr className="border-b bg-muted/50">
-                            <th className="py-3 px-4 text-left font-medium text-sm">Status</th>
-                            <th className="py-3 px-4 text-left font-medium text-sm">Runtime</th>
-                            <th className="py-3 px-4 text-left font-medium text-sm">Memory</th>
-                            <th className="py-3 px-4 text-left font-medium text-sm">Language</th>
-                            <th className="py-3 px-4 text-left font-medium text-sm">Submitted</th>
+                            <th className="py-3 px-4 text-left font-medium text-sm">Holat</th>
+                            <th className="py-3 px-4 text-left font-medium text-sm">Ishlash vaqti</th>
+                            <th className="py-3 px-4 text-left font-medium text-sm">Xotira</th>
+                            <th className="py-3 px-4 text-left font-medium text-sm">Til</th>
+                            <th className="py-3 px-4 text-left font-medium text-sm">Yuborilgan</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -667,25 +677,25 @@ def reverseString(s: list) -> list:
                             <td className="py-3 px-4">
                               <div className="flex items-center">
                                 <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                                <span>Accepted</span>
+                                <span>Qabul qilindi</span>
                               </div>
                             </td>
                             <td className="py-3 px-4">4 ms</td>
                             <td className="py-3 px-4">13.8 MB</td>
                             <td className="py-3 px-4">Python</td>
-                            <td className="py-3 px-4">2 days ago</td>
+                            <td className="py-3 px-4">2 kun oldin</td>
                           </tr>
                           <tr>
                             <td className="py-3 px-4">
                               <div className="flex items-center">
                                 <XCircle className="h-4 w-4 text-red-500 mr-2" />
-                                <span>Wrong Answer</span>
+                                <span>Noto'g'ri javob</span>
                               </div>
                             </td>
                             <td className="py-3 px-4">N/A</td>
                             <td className="py-3 px-4">N/A</td>
                             <td className="py-3 px-4">Python</td>
-                            <td className="py-3 px-4">2 days ago</td>
+                            <td className="py-3 px-4">2 kun oldin</td>
                           </tr>
                         </tbody>
                       </table>
@@ -697,23 +707,23 @@ def reverseString(s: list) -> list:
               <TabsContent value="discussion" className="pt-4">
                 <Card className="border-none shadow-md">
                   <CardHeader>
-                    <CardTitle className="text-lg">Discussion</CardTitle>
+                    <CardTitle className="text-lg">Muhokama</CardTitle>
                   </CardHeader>
                   <CardContent className="p-6">
                     <div className="space-y-4">
                       <div className="flex items-center gap-2">
                         <Button className="gap-2">
                           <MessageSquare className="h-4 w-4" />
-                          New Discussion
+                          Yangi muhokama
                         </Button>
                         <Select defaultValue="newest">
                           <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Sort by" />
+                            <SelectValue placeholder="Saralash" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="newest">Newest</SelectItem>
-                            <SelectItem value="popular">Most Popular</SelectItem>
-                            <SelectItem value="recent">Recently Active</SelectItem>
+                            <SelectItem value="newest">Yangi</SelectItem>
+                            <SelectItem value="popular">Mashhur</SelectItem>
+                            <SelectItem value="recent">Yaqinda faol</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
@@ -727,10 +737,10 @@ def reverseString(s: list) -> list:
                             <div className="flex-1">
                               <div className="flex items-center justify-between">
                                 <h4 className="font-medium">John Doe</h4>
-                                <span className="text-xs text-muted-foreground">2 days ago</span>
+                                <span className="text-xs text-muted-foreground">2 kun oldin</span>
                               </div>
                               <p className="text-sm mt-1">
-                                I found a really elegant one-liner solution using Python's slice notation:{" "}
+                                Men Pythonning kesish yozuvidan foydalanib juda chiroyli bir qatorli yechimni topdim:{" "}
                                 <code>return s[::-1]</code>
                               </p>
                               <div className="flex items-center gap-4 mt-2">
@@ -740,7 +750,7 @@ def reverseString(s: list) -> list:
                                 </Button>
                                 <Button variant="ghost" size="sm" className="gap-1 h-7">
                                   <MessageSquare className="h-3.5 w-3.5" />
-                                  <span className="text-xs">Reply</span>
+                                  <span className="text-xs">Javob</span>
                                 </Button>
                               </div>
                             </div>
@@ -755,11 +765,11 @@ def reverseString(s: list) -> list:
                             <div className="flex-1">
                               <div className="flex items-center justify-between">
                                 <h4 className="font-medium">Alice Smith</h4>
-                                <span className="text-xs text-muted-foreground">1 week ago</span>
+                                <span className="text-xs text-muted-foreground">1 hafta oldin</span>
                               </div>
                               <p className="text-sm mt-1">
-                                Remember that the problem asks for an in-place solution. Using slice notation creates a
-                                new list, which uses O(n) extra space.
+                                Eslatib o'tamiz, muammo joyida yechimni talab qiladi. Kesish yozuvidan foydalanish yangi
+                                ro'yxat yaratadi, bu esa O(n) qo'shimcha xotirani ishlatadi.
                               </p>
                               <div className="flex items-center gap-4 mt-2">
                                 <Button variant="ghost" size="sm" className="gap-1 h-7">
@@ -768,7 +778,7 @@ def reverseString(s: list) -> list:
                                 </Button>
                                 <Button variant="ghost" size="sm" className="gap-1 h-7">
                                   <MessageSquare className="h-3.5 w-3.5" />
-                                  <span className="text-xs">Reply</span>
+                                  <span className="text-xs">Javob</span>
                                 </Button>
                               </div>
                             </div>
@@ -787,7 +797,7 @@ def reverseString(s: list) -> list:
               <div className="flex items-center gap-2">
                 <Select value={language} onValueChange={handleLanguageChange}>
                   <SelectTrigger className="w-[120px]">
-                    <SelectValue placeholder="Language" />
+                    <SelectValue placeholder="Til" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="python">Python</SelectItem>
@@ -799,7 +809,7 @@ def reverseString(s: list) -> list:
 
                 <Select value={fontSize} onValueChange={setFontSize}>
                   <SelectTrigger className="w-[80px]">
-                    <SelectValue placeholder="Font Size" />
+                    <SelectValue placeholder="Shrift hajmi" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="12px">12px</SelectItem>
@@ -818,7 +828,7 @@ def reverseString(s: list) -> list:
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>{copied ? "Copied!" : "Copy code"}</p>
+                      <p>{copied ? "Nusxalandi!" : "Kodni nusxalash"}</p>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
@@ -831,7 +841,7 @@ def reverseString(s: list) -> list:
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>Reset code</p>
+                      <p>Kodni tiklash</p>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
@@ -840,11 +850,11 @@ def reverseString(s: list) -> list:
               <div className="flex items-center gap-2">
                 <Button variant="outline" size="sm" className="gap-1" onClick={handleRunCode} disabled={isRunning}>
                   <Play className="h-4 w-4" />
-                  {isRunning ? "Running..." : "Run Code"}
+                  {isRunning ? "Ishlayapti..." : "Kodni ishga tushirish"}
                 </Button>
                 <Button size="sm" className="gap-1" onClick={handleSubmitCode} disabled={isSubmitting}>
                   <Code className="h-4 w-4" />
-                  {isSubmitting ? "Submitting..." : "Submit"}
+                  {isSubmitting ? "Yuborilmoqda..." : "Yuborish"}
                 </Button>
               </div>
             </div>
@@ -858,7 +868,7 @@ def reverseString(s: list) -> list:
                     style={{ fontSize }}
                   />
                   <div className="absolute top-2 right-2 text-xs text-muted-foreground bg-background/80 px-2 py-1 rounded">
-                    {code.split("\n").length} lines
+                    {code.split("\n").length} qator
                   </div>
                 </div>
               </CardContent>
@@ -866,8 +876,8 @@ def reverseString(s: list) -> list:
 
             <Tabs defaultValue="testcases" className="w-full">
               <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="testcases">Test Cases</TabsTrigger>
-                <TabsTrigger value="results">Results</TabsTrigger>
+                <TabsTrigger value="testcases">Test holatlari</TabsTrigger>
+                <TabsTrigger value="results">Natijalar</TabsTrigger>
               </TabsList>
               <TabsContent value="testcases" className="pt-4">
                 <Card className="border-none shadow-md">
@@ -881,17 +891,17 @@ def reverseString(s: list) -> list:
                           Test 2
                         </TabsTrigger>
                         <TabsTrigger value="custom" className="text-xs">
-                          Custom
+                          Maxsus
                         </TabsTrigger>
                       </TabsList>
 
                       <TabsContent value="test1">
                         <div className="space-y-2">
-                          <div className="text-sm font-medium">Input:</div>
+                          <div className="text-sm font-medium">Kirish:</div>
                           <div className="bg-muted/50 p-3 rounded-md font-mono text-sm overflow-x-auto">
                             s = ["h","e","l","l","o"]
                           </div>
-                          <div className="text-sm font-medium mt-4">Expected Output:</div>
+                          <div className="text-sm font-medium mt-4">Kutilayotgan chiqish:</div>
                           <div className="bg-muted/50 p-3 rounded-md font-mono text-sm overflow-x-auto">
                             ["o","l","l","e","h"]
                           </div>
@@ -900,11 +910,11 @@ def reverseString(s: list) -> list:
 
                       <TabsContent value="test2">
                         <div className="space-y-2">
-                          <div className="text-sm font-medium">Input:</div>
+                          <div className="text-sm font-medium">Kirish:</div>
                           <div className="bg-muted/50 p-3 rounded-md font-mono text-sm overflow-x-auto">
                             s = ["H","a","n","n","a","h"]
                           </div>
-                          <div className="text-sm font-medium mt-4">Expected Output:</div>
+                          <div className="text-sm font-medium mt-4">Kutilayotgan chiqish:</div>
                           <div className="bg-muted/50 p-3 rounded-md font-mono text-sm overflow-x-auto">
                             ["h","a","n","n","a","H"]
                           </div>
@@ -914,14 +924,14 @@ def reverseString(s: list) -> list:
                       <TabsContent value="custom">
                         <div className="space-y-4">
                           <div>
-                            <div className="text-sm font-medium mb-2">Input:</div>
+                            <div className="text-sm font-medium mb-2">Kirish:</div>
                             <Textarea
-                              placeholder="Enter your custom input here..."
+                              placeholder="Maxsus kirishni shu yerga yozing..."
                               className="font-mono text-sm h-24"
                               defaultValue='["c","u","s","t","o","m"]'
                             />
                           </div>
-                          <Button size="sm">Run Custom Test</Button>
+                          <Button size="sm">Maxsus testni ishga tushirish</Button>
                         </div>
                       </TabsContent>
                     </Tabs>
@@ -939,12 +949,12 @@ def reverseString(s: list) -> list:
                         {testResults.passed ? (
                           <>
                             <Check className="h-5 w-5 text-green-500" />
-                            <span className="text-green-700 dark:text-green-400">Success!</span>
+                            <span className="text-green-700 dark:text-green-400">Muvaffaqiyat!</span>
                           </>
                         ) : (
                           <>
                             <XCircle className="h-5 w-5 text-red-500" />
-                            <span className="text-red-700 dark:text-red-400">Failed</span>
+                            <span className="text-red-700 dark:text-red-400">Muvaffaqiyatsiz</span>
                           </>
                         )}
                       </CardTitle>
@@ -961,23 +971,23 @@ def reverseString(s: list) -> list:
                       <div className="mt-4 space-y-4">
                         <div className="grid grid-cols-2 gap-4">
                           <div className="bg-background/50 p-3 rounded-md">
-                            <div className="text-xs text-muted-foreground mb-1">Runtime</div>
+                            <div className="text-xs text-muted-foreground mb-1">Ishlash vaqti</div>
                             <div className="font-medium">{testResults.time}</div>
                             {testResults.passed && (
-                              <div className="text-xs text-muted-foreground mt-1">Beats 92% of submissions</div>
+                              <div className="text-xs text-muted-foreground mt-1">Topshiriqlarning 92% dan ustun</div>
                             )}
                           </div>
                           <div className="bg-background/50 p-3 rounded-md">
-                            <div className="text-xs text-muted-foreground mb-1">Memory</div>
+                            <div className="text-xs text-muted-foreground mb-1">Xotira</div>
                             <div className="font-medium">{testResults.memory}</div>
                             {testResults.passed && (
-                              <div className="text-xs text-muted-foreground mt-1">Beats 78% of submissions</div>
+                              <div className="text-xs text-muted-foreground mt-1">Topshiriqlarning 78% dan ustun</div>
                             )}
                           </div>
                         </div>
 
                         <div>
-                          <h4 className="text-sm font-medium mb-2">Test Case Results</h4>
+                          <h4 className="text-sm font-medium mb-2">Test holati natijalari</h4>
                           <div className="space-y-3">
                             {testResults.testCases.map((testCase, index) => (
                               <div
@@ -985,7 +995,7 @@ def reverseString(s: list) -> list:
                                 className={`border p-3 rounded-md ${testCase.passed ? "border-green-200 dark:border-green-800" : "border-red-200 dark:border-red-800"}`}
                               >
                                 <div className="flex items-center gap-2 mb-2">
-                                  <span className="text-sm font-medium">Test Case {index + 1}:</span>
+                                  <span className="text-sm font-medium">Test holati {index + 1}:</span>
                                   {testCase.passed ? (
                                     <Check className="h-4 w-4 text-green-500" />
                                   ) : (
@@ -994,15 +1004,15 @@ def reverseString(s: list) -> list:
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
                                   <div>
-                                    <div className="font-medium mb-1">Input:</div>
+                                    <div className="font-medium mb-1">Kirish:</div>
                                     <div className="font-mono bg-muted/30 p-2 rounded">{testCase.input}</div>
                                   </div>
                                   <div>
-                                    <div className="font-medium mb-1">Expected:</div>
+                                    <div className="font-medium mb-1">Kutilgan:</div>
                                     <div className="font-mono bg-muted/30 p-2 rounded">{testCase.expected}</div>
                                   </div>
                                   <div>
-                                    <div className="font-medium mb-1">Output:</div>
+                                    <div className="font-medium mb-1">Chiqish:</div>
                                     <div
                                       className={`font-mono p-2 rounded ${
                                         testCase.passed
@@ -1025,13 +1035,13 @@ def reverseString(s: list) -> list:
                   <Card className="border-none shadow-md">
                     <CardContent className="p-6 flex flex-col items-center justify-center min-h-[200px] text-center">
                       <Info className="h-12 w-12 text-muted-foreground mb-4" />
-                      <h3 className="text-lg font-medium mb-2">No Results Yet</h3>
+                      <h3 className="text-lg font-medium mb-2">Hali natijalar yo'q</h3>
                       <p className="text-muted-foreground">
-                        Run your code against the test cases to see the results here.
+                        Test holatlariga qarshi kodingizni ishga tushiring va natijalarni shu yerda ko'ring.
                       </p>
                       <Button className="mt-4 gap-2" onClick={handleRunCode}>
                         <Play className="h-4 w-4" />
-                        Run Code
+                        Kodni ishga tushirish
                       </Button>
                     </CardContent>
                   </Card>
@@ -1039,27 +1049,27 @@ def reverseString(s: list) -> list:
               </TabsContent>
             </Tabs>
           </motion.div>
-        </div>
+        </Split>
 
         <motion.div variants={fadeIn} className="bg-muted/50 rounded-lg p-6">
           <div className="flex flex-col md:flex-row gap-6 items-center">
             <div className="flex-1">
-              <h3 className="text-lg font-semibold mb-2">Problem Stats</h3>
+              <h3 className="text-lg font-semibold mb-2">Muammo statistikasi</h3>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <div className="flex justify-between text-sm">
-                    <span>Acceptance Rate</span>
+                    <span>Qabul qilish darajasi</span>
                     <span className="font-medium">{problem.acceptanceRate}%</span>
                   </div>
                   <Progress value={problem.acceptanceRate} className="h-2" />
                 </div>
                 <div className="space-y-1">
                   <div className="flex justify-between text-sm">
-                    <span>Submissions</span>
+                    <span>Topshiriqlar</span>
                     <span className="font-medium">1.2M+</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span>Difficulty</span>
+                    <span>Qiyinlik</span>
                     <span
                       className={
                         problem.difficulty === "Easy"
@@ -1077,7 +1087,7 @@ def reverseString(s: list) -> list:
             </div>
             <div className="flex-1 flex justify-center">
               <div className="bg-background p-4 rounded-lg shadow-sm w-full max-w-xs">
-                <h4 className="font-medium mb-2">Companies That Ask This</h4>
+                <h4 className="font-medium mb-2">Bu muammoni so'raydigan kompaniyalar</h4>
                 <div className="grid grid-cols-2 gap-2">
                   {problem.companies.map((company, index) => (
                     <Badge key={index} variant="outline" className="justify-center">
@@ -1097,14 +1107,14 @@ def reverseString(s: list) -> list:
 const problems = [
   {
     id: 1,
-    title: "Reverse String",
+    title: "Teskari satr",
     description:
-      "Write a function that reverses a string. The input string is given as an array of characters s. You must do this by modifying the input array in-place with O(1) extra memory.",
+      "Satrni teskari aylantiruvchi funksiya yozing. Kirish satri s belgilar massivi sifatida berilgan. Siz buni kirish massivini O(1) qo'shimcha xotira bilan joyida o'zgartirish orqali amalga oshirishingiz kerak.",
     functionSignature: "def reverseString(s: list) -> list:",
-    difficulty: "Easy",
+    difficulty: "Oson",
     acceptanceRate: 76,
     timeComplexity: "O(n)",
-    tags: ["Two Pointers", "String"],
+    tags: ["Ikki ko'rsatkich", "Satr"],
     status: "Attempted",
     examples: [
       {
@@ -1116,82 +1126,82 @@ const problems = [
         output: '["h","a","n","n","a","H"]',
       },
     ],
-    constraints: ["1 <= s.length <= 10^5", "s[i] is a printable ascii character."],
-    followUp: "Could you solve it with O(1) extra memory?",
+    constraints: ["1 <= s.length <= 10^5", "s[i] bosiladigan ascii belgisi."],
+    followUp: "Buni O(1) qo'shimcha xotira bilan hal qila olasizmi?",
     hints: [
-      "The entire logic for reversing a string is based on using the opposite directional two-pointer approach!",
-      "Try using a left pointer and a right pointer and swapping elements until they meet in the middle.",
-      "Remember that strings are immutable in many languages, but the problem gives you an array of characters, which is mutable.",
+      "Satrni teskari aylantirishning butun mantiqi qarama-qarshi yo'nalishdagi ikki ko'rsatkich yondashuviga asoslangan!",
+      "Chap va o'ng ko'rsatkichlardan foydalanishga harakat qiling va ular o'rtada uchrashgunicha elementlarni almashtiring.",
+      "Eslatib o'tamiz, ko'pgina tillarda satrlar o'zgarmas, lekin muammo sizga o'zgaruvchan bo'lgan belgilar massivini beradi.",
     ],
     relatedProblems: [
       {
         id: 2,
-        title: "Two Sum",
-        difficulty: "Easy",
+        title: "Ikki yig'indi",
+        difficulty: "Oson",
       },
       {
         id: 3,
-        title: "Reverse Words in a String",
-        difficulty: "Medium",
+        title: "Satrdagi so'zlarni teskari aylantirish",
+        difficulty: "O'rta",
       },
       {
         id: 4,
-        title: "Reverse Linked List",
-        difficulty: "Easy",
+        title: "Teskari bog'langan ro'yxat",
+        difficulty: "Oson",
       },
     ],
     companies: ["Amazon", "Microsoft", "Apple", "Google", "Meta", "Adobe"],
   },
   {
     id: 2,
-    title: "Two Sum",
+    title: "Ikki yig'indi",
     description:
-      "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target. You may assume that each input would have exactly one solution, and you may not use the same element twice.",
+      "Butun sonlar nums massivi va butun son target berilgan bo'lsa, ikkita sonning indekslarini qaytaring, shunda ularning yig'indisi target ga teng bo'ladi. Har bir kirishda aynan bitta yechim bo'lishini va siz bir xil elementni ikki marta ishlatmasligingizni taxmin qilishingiz mumkin.",
     functionSignature: "def twoSum(nums: list, target: int) -> list:",
-    difficulty: "Easy",
+    difficulty: "Oson",
     acceptanceRate: 48,
     timeComplexity: "O(n)",
-    tags: ["Array", "Hash Table"],
+    tags: ["Massiv", "Hash jadvali"],
     status: "Solved",
     examples: [
       {
         input: "nums = [2,7,11,15], target = 9",
         output: "[0,1]",
-        explanation: "Because nums[0] + nums[1] == 9, we return [0, 1].",
+        explanation: "nums[0] + nums[1] == 9 bo'lgani uchun [0, 1] ni qaytaramiz.",
       },
       {
         input: "nums = [3,2,4], target = 6",
         output: "[1,2]",
-        explanation: "Because nums[1] + nums[2] == 6, we return [1, 2].",
+        explanation: "nums[1] + nums[2] == 6 bo'lgani uchun [1, 2] ni qaytaramiz.",
       },
     ],
     constraints: [
       "2 <= nums.length <= 10^4",
       "-10^9 <= nums[i] <= 10^9",
       "-10^9 <= target <= 10^9",
-      "Only one valid answer exists.",
+      "Faqat bitta to'g'ri javob mavjud.",
     ],
-    followUp: "Can you come up with an algorithm that is less than O(n²) time complexity?",
+    followUp: "O(n²) dan kamroq vaqt murakkabligiga ega algoritmni topa olasizmi?",
     hints: [
-      "A naive approach would be to use two nested loops to check every pair of numbers, but this would be O(n²).",
-      "Think about using a hash map to store numbers you've already seen.",
-      "For each number, check if the target minus the current number exists in the hash map.",
+      "Oddiy yondashuv har bir son juftini tekshirish uchun ikkita ichki tsikldan foydalanish bo'lishi mumkin, lekin bu O(n²) bo'ladi.",
+      "Ko'rib chiqqan sonlarni saqlash uchun hash map dan foydalanish haqida o'ylang.",
+      "Har bir son uchun, target dan joriy sonni ayirganingizda hash map da mavjudligini tekshiring.",
     ],
     relatedProblems: [
       {
         id: 1,
-        title: "Reverse String",
-        difficulty: "Easy",
+        title: "Teskari satr",
+        difficulty: "Oson",
       },
       {
         id: 5,
-        title: "3Sum",
-        difficulty: "Medium",
+        title: "3 yig'indi",
+        difficulty: "O'rta",
       },
       {
         id: 6,
-        title: "4Sum",
-        difficulty: "Medium",
+        title: "4 yig'indi",
+        difficulty: "O'rta",
       },
     ],
     companies: ["Google", "Amazon", "Facebook", "Apple", "Microsoft", "Bloomberg"],

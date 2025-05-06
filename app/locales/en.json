@@ -1,0 +1,19 @@
+{
+  "Index": {
+    "title": "EduLearn Platform",
+    "description": "Learn at your own pace with our comprehensive courses"
+  },
+  "Navigation": {
+    "home": "Home",
+    "courses": "Courses",
+    "contests": "Contests",
+    "problems": "Problems",
+    "certificates": "Certificates",
+    "about": "About"
+  },
+  "Footer": {
+    "terms": "Terms",
+    "privacy": "Privacy",
+    "cookies": "Cookies"
+  }
+}

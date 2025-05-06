@@ -1,0 +1,19 @@
+{
+  "Index": {
+    "title": "Платформа EduLearn",
+    "description": "Учитесь в своем темпе с нашими всесторонними курсами"
+  },
+  "Navigation": {
+    "home": "Главная",
+    "courses": "Курсы",
+    "contests": "Конкурсы",
+    "problems": "Задачи",
+    "certificates": "Сертификаты",
+    "about": "О нас"
+  },
+  "Footer": {
+    "terms": "Условия",
+    "privacy": "Политика конфиденциальности",
+    "cookies": "Файлы cookie"
+  }
+}

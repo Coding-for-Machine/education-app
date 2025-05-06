@@ -1,0 +1,19 @@
+{
+  "Index": {
+    "title": "EduLearn Platformasi",
+    "description": "Bizning keng qamrovli kurslarimiz bilan o'z sur'atingizda o'rganing"
+  },
+  "Navigation": {
+    "home": "Bosh sahifa",
+    "courses": "Kurslar",
+    "contests": "Musobaqalar",
+    "problems": "Masalalar",
+    "certificates": "Sertifikatlar",
+    "about": "Biz haqimizda"
+  },
+  "Footer": {
+    "terms": "Qoidalar",
+    "privacy": "Maxfiylik siyosati",
+    "cookies": "Cookie fayllar"
+  }
+}

@@ -9,12 +9,10 @@ import {
   Award,
   BookOpen,
   Calendar,
-  CheckCircle,
   Clock,
   GraduationCap,
   User,
   Eye,
-  Trophy,
   ChevronRight,
   Star,
 } from "lucide-react"
@@ -25,6 +23,229 @@ import { Progress } from "@/components/ui/progress"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { ActivityCalendar } from "@/components/activity-calendar"
+import { ProblemStatsCard } from "@/components/problem-stats-card"
+import { RecentActivityList } from "@/components/recent-activity-list"
+import { SolvedProblemsList } from "@/components/solved-problems-list"
+
+// Mock data for the activity calendar
+const contributionData = {
+  year: 2025,
+  total: 62,
+  calendar: [
+    {
+      month: "Jan",
+      days: Array.from({ length: 31 }, (_, i) => ({
+        date: `2025-01-${String(i + 1).padStart(2, "0")}`,
+        count: 0,
+      })),
+    },
+    {
+      month: "Feb",
+      days: Array.from({ length: 28 }, (_, i) => ({
+        date: `2025-02-${String(i + 1).padStart(2, "0")}`,
+        count: 0,
+      })),
+    },
+    {
+      month: "Mar",
+      days: Array.from({ length: 31 }, (_, i) => ({
+        date: `2025-03-${String(i + 1).padStart(2, "0")}`,
+        count: 0,
+      })),
+    },
+    {
+      month: "Apr",
+      days: Array.from({ length: 30 }, (_, i) => {
+        const day = i + 1
+        let count = 0
+        if (day === 21) count = 9
+        if (day === 22) count = 15
+        if (day === 28) count = 11
+        if (day === 29) count = 1
+        if (day === 30) count = 4
+        return {
+          date: `2025-04-${String(day).padStart(2, "0")}`,
+          count,
+        }
+      }),
+    },
+    {
+      month: "May",
+      days: Array.from({ length: 31 }, (_, i) => {
+        const day = i + 1
+        let count = 0
+        if (day === 5) count = 21
+        if (day === 6) count = 1
+        return {
+          date: `2025-05-${String(day).padStart(2, "0")}`,
+          count,
+        }
+      }),
+    },
+    {
+      month: "Jun",
+      days: Array.from({ length: 30 }, (_, i) => ({
+        date: `2025-06-${String(i + 1).padStart(2, "0")}`,
+        count: 0,
+      })),
+    },
+    {
+      month: "Jul",
+      days: Array.from({ length: 31 }, (_, i) => ({
+        date: `2025-07-${String(i + 1).padStart(2, "0")}`,
+        count: 0,
+      })),
+    },
+    {
+      month: "Aug",
+      days: Array.from({ length: 31 }, (_, i) => ({
+        date: `2025-08-${String(i + 1).padStart(2, "0")}`,
+        count: 0,
+      })),
+    },
+    {
+      month: "Sep",
+      days: Array.from({ length: 30 }, (_, i) => ({
+        date: `2025-09-${String(i + 1).padStart(2, "0")}`,
+        count: 0,
+      })),
+    },
+    {
+      month: "Oct",
+      days: Array.from({ length: 31 }, (_, i) => ({
+        date: `2025-10-${String(i + 1).padStart(2, "0")}`,
+        count: 0,
+      })),
+    },
+    {
+      month: "Nov",
+      days: Array.from({ length: 30 }, (_, i) => ({
+        date: `2025-11-${String(i + 1).padStart(2, "0")}`,
+        count: 0,
+      })),
+    },
+    {
+      month: "Dec",
+      days: Array.from({ length: 31 }, (_, i) => ({
+        date: `2025-12-${String(i + 1).padStart(2, "0")}`,
+        count: 0,
+      })),
+    },
+  ],
+}
+
+// User activity data
+const userActivities = [
+  {
+    id: 8,
+    date: "2025-05-06",
+    activity_count: 1,
+    total_duration: 542,
+    score: 0,
+    problem_solved: 1,
+  },
+  {
+    id: 7,
+    date: "2025-05-05",
+    activity_count: 21,
+    total_duration: 897,
+    score: 0,
+    problem_solved: 21,
+  },
+  {
+    id: 6,
+    date: "2025-04-30",
+    activity_count: 4,
+    total_duration: 157,
+    score: 0,
+    problem_solved: 4,
+  },
+  {
+    id: 5,
+    date: "2025-04-29",
+    activity_count: 1,
+    total_duration: 32,
+    score: 0,
+    problem_solved: 1,
+  },
+  {
+    id: 3,
+    date: "2025-04-28",
+    activity_count: 11,
+    total_duration: 499,
+    score: 0,
+    problem_solved: 11,
+  },
+  {
+    id: 2,
+    date: "2025-04-22",
+    activity_count: 15,
+    total_duration: 366,
+    score: 0,
+    problem_solved: 15,
+  },
+  {
+    id: 1,
+    date: "2025-04-21",
+    activity_count: 9,
+    total_duration: 301,
+    score: 0,
+    problem_solved: 9,
+  },
+]
+
+// Solved problems data
+const solvedProblems = [
+  {
+    problem_id: 1,
+    problem_title: "A+B",
+    is_completed: true,
+    score: 100,
+  },
+  {
+    problem_id: 2,
+    problem_title: "1 bo'lgan bitlar soni",
+    is_completed: true,
+    score: 100,
+  },
+  {
+    problem_id: 3,
+    problem_title: "Son 4 ning darajasimi?",
+    is_completed: true,
+    score: 100,
+  },
+  {
+    problem_id: 4,
+    problem_title: "Raqamlar yig'indisi",
+    is_completed: true,
+    score: 250,
+  },
+  {
+    problem_id: 6,
+    problem_title: "Palindrom son",
+    is_completed: true,
+    score: 450,
+  },
+  {
+    problem_id: 5,
+    problem_title: "Teskari raqam",
+    is_completed: true,
+    score: 450,
+  },
+]
+
+// User stats data
+const userStats = {
+  total_solved: 6,
+  easy_solved: 3,
+  medium_solved: 1,
+  hard_solved: 2,
+  total_score: 1450,
+  current_streak: 2,
+  max_streak: 2,
+  last_activity: "2025-05-06T09:17:53.914Z",
+}
 
 export default function ProfilePage() {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -104,51 +325,84 @@ export default function ProfilePage() {
             </CardFooter>
           </Card>
 
-          <Card className="mt-6 border-none shadow-lg">
-            <CardHeader>
-              <CardTitle>Achievements</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {achievements.map((achievement, index) => (
-                  <motion.div
-                    key={index}
-                    className="flex items-center gap-3 p-2 rounded-md hover:bg-muted/50 transition-colors"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 + 0.5 }}
-                  >
-                    <div className="p-1.5 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 dark:from-emerald-600 dark:to-teal-800">
-                      {achievement.icon}
-                    </div>
-                    <div>
-                      <div className="font-medium">{achievement.title}</div>
-                      <div className="text-xs text-muted-foreground">{achievement.description}</div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button variant="ghost" size="sm" className="w-full group" asChild>
-                <Link href="/achievements">
-                  View All Achievements{" "}
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </Button>
-            </CardFooter>
-          </Card>
+          <div className="mt-6 space-y-6">
+            <ProblemStatsCard stats={userStats} />
+            <RecentActivityList activities={userActivities.slice(0, 3)} />
+          </div>
         </motion.div>
 
         <motion.div variants={item} className="lg:col-span-2 space-y-6">
-          <Tabs defaultValue="courses" className="w-full">
+          <Tabs defaultValue="activity" className="w-full">
             <TabsList className="grid w-full grid-cols-4">
-              <TabsTrigger value="courses">My Courses</TabsTrigger>
-              <TabsTrigger value="certificates">Certificates</TabsTrigger>
-              <TabsTrigger value="contests">Contests</TabsTrigger>
               <TabsTrigger value="activity">Activity</TabsTrigger>
+              <TabsTrigger value="problems">Problems</TabsTrigger>
+              <TabsTrigger value="courses">Courses</TabsTrigger>
+              <TabsTrigger value="certificates">Certificates</TabsTrigger>
             </TabsList>
-            <TabsContent value="courses" className="space-y-4 pt-4">
+
+            <TabsContent value="activity" className="space-y-6 pt-4">
+              <Card className="border-none shadow-md">
+                <CardContent className="p-6">
+                  <ActivityCalendar data={contributionData} />
+                </CardContent>
+              </Card>
+
+              <RecentActivityList activities={userActivities} />
+            </TabsContent>
+
+            <TabsContent value="problems" className="space-y-6 pt-4">
+              <SolvedProblemsList problems={solvedProblems} />
+
+              <Card className="border-none shadow-md">
+                <CardHeader>
+                  <CardTitle className="text-lg">Problem Solving Progress</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between text-sm">
+                        <span>Easy Problems</span>
+                        <span className="font-medium">{userStats.easy_solved}/100</span>
+                      </div>
+                      <Progress
+                        value={userStats.easy_solved}
+                        max={100}
+                        className="h-2"
+                        indicatorClassName="bg-gradient-to-r from-green-400 to-green-600"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between text-sm">
+                        <span>Medium Problems</span>
+                        <span className="font-medium">{userStats.medium_solved}/75</span>
+                      </div>
+                      <Progress
+                        value={userStats.medium_solved}
+                        max={75}
+                        className="h-2"
+                        indicatorClassName="bg-gradient-to-r from-yellow-400 to-yellow-600"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between text-sm">
+                        <span>Hard Problems</span>
+                        <span className="font-medium">{userStats.hard_solved}/50</span>
+                      </div>
+                      <Progress
+                        value={userStats.hard_solved}
+                        max={50}
+                        className="h-2"
+                        indicatorClassName="bg-gradient-to-r from-red-400 to-red-600"
+                      />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="courses" className="pt-4">
               <div className="grid gap-4">
                 {enrolledCourses.map((course, index) => (
                   <motion.div
@@ -236,16 +490,9 @@ export default function ProfilePage() {
                   </motion.div>
                 ))}
               </div>
-              <div className="flex justify-center">
-                <Button variant="outline" asChild className="group">
-                  <Link href="/courses">
-                    Browse More Courses{" "}
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </Button>
-              </div>
             </TabsContent>
-            <TabsContent value="certificates" className="space-y-4 pt-4">
+
+            <TabsContent value="certificates" className="pt-4">
               <div className="grid gap-4 md:grid-cols-2">
                 {certificates.map((certificate, index) => (
                   <motion.div
@@ -281,199 +528,13 @@ export default function ProfilePage() {
                   </motion.div>
                 ))}
               </div>
-              <div className="flex justify-center">
-                <Button asChild className="group">
-                  <Link href="/certificates">
-                    View All Certificates{" "}
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </Button>
-              </div>
-            </TabsContent>
-            <TabsContent value="contests" className="space-y-4 pt-4">
-              <div className="grid gap-4">
-                {participatedContests.map((contest, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                  >
-                    <Card className="border-none shadow-md hover:shadow-lg transition-shadow">
-                      <CardContent className="p-6">
-                        <div className="flex flex-col md:flex-row gap-4 items-start">
-                          <div className="p-3 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 dark:from-blue-600 dark:to-indigo-800 flex items-center justify-center">
-                            <Trophy className="h-6 w-6 text-white" />
-                          </div>
-                          <div className="flex-1">
-                            <div className="flex items-center justify-between mb-2">
-                              <h3 className="font-semibold">{contest.title}</h3>
-                              <Badge
-                                variant="outline"
-                                className={
-                                  contest.placement === "1st Place"
-                                    ? "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300"
-                                    : contest.placement === "2nd Place"
-                                      ? "bg-slate-100 dark:bg-slate-900/30 text-slate-800 dark:text-slate-300"
-                                      : contest.placement === "3rd Place"
-                                        ? "bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300"
-                                        : "bg-muted text-muted-foreground"
-                                }
-                              >
-                                {contest.placement}
-                              </Badge>
-                            </div>
-                            <p className="text-sm text-muted-foreground mb-2">{contest.description}</p>
-                            <div className="flex items-center gap-4 text-sm">
-                              <div className="flex items-center gap-1">
-                                <Calendar className="h-4 w-4 text-muted-foreground" />
-                                <span>{contest.date}</span>
-                              </div>
-                              <div className="flex items-center gap-1">
-                                <Award className="h-4 w-4 text-muted-foreground" />
-                                <span>Score: {contest.score}/100</span>
-                              </div>
-                            </div>
-                            <div className="flex gap-2 mt-3">
-                              <Button variant="outline" size="sm" asChild className="group">
-                                <Link href={`/contests/${contest.id}/results`}>
-                                  View Results{" "}
-                                  <ArrowRight className="ml-1 h-3 w-3 group-hover:translate-x-1 transition-transform" />
-                                </Link>
-                              </Button>
-                              {contest.certificateId && (
-                                <Button size="sm" asChild className="group">
-                                  <Link href={`/certificates/${contest.certificateId}`}>
-                                    View Certificate{" "}
-                                    <Eye className="ml-1 h-3 w-3 group-hover:scale-110 transition-transform" />
-                                  </Link>
-                                </Button>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                ))}
-              </div>
-              <div className="flex justify-center">
-                <Button variant="outline" asChild className="group">
-                  <Link href="/contests">
-                    Browse More Contests{" "}
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </Button>
-              </div>
-            </TabsContent>
-            <TabsContent value="activity" className="space-y-4 pt-4">
-              <Card className="border-none shadow-md">
-                <CardHeader>
-                  <CardTitle>Recent Activity</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {activities.map((activity, index) => (
-                      <motion.div
-                        key={index}
-                        className="flex items-start gap-4 pb-4 border-b last:border-0 last:pb-0"
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1 }}
-                      >
-                        <div className="p-2 rounded-full bg-muted shrink-0">{activity.icon}</div>
-                        <div>
-                          <div className="font-medium">{activity.title}</div>
-                          <div className="text-sm text-muted-foreground">{activity.description}</div>
-                          <div className="text-xs text-muted-foreground mt-1">{activity.time}</div>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
             </TabsContent>
           </Tabs>
-
-          <Card className="border-none shadow-md">
-            <CardHeader>
-              <CardTitle>Learning Statistics</CardTitle>
-              <CardDescription>Your learning activity over the past month</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid gap-4 md:grid-cols-3">
-                <motion.div
-                  className="space-y-2"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <div className="text-sm font-medium text-muted-foreground">Hours Spent</div>
-                  <div className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent">
-                    42.5
-                  </div>
-                </motion.div>
-                <motion.div
-                  className="space-y-2"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.3 }}
-                >
-                  <div className="text-sm font-medium text-muted-foreground">Lessons Completed</div>
-                  <div className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent">
-                    78
-                  </div>
-                </motion.div>
-                <motion.div
-                  className="space-y-2"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.4 }}
-                >
-                  <div className="text-sm font-medium text-muted-foreground">Quizzes Passed</div>
-                  <div className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent">
-                    15
-                  </div>
-                </motion.div>
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button variant="outline" className="w-full group" asChild>
-                <Link href="/statistics">
-                  View Detailed Statistics{" "}
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </Button>
-            </CardFooter>
-          </Card>
         </motion.div>
       </motion.div>
     </div>
   )
 }
-
-const achievements = [
-  {
-    icon: <Award className="h-5 w-5 text-white" />,
-    title: "First Course Completed",
-    description: "Completed your first course on the platform",
-  },
-  {
-    icon: <CheckCircle className="h-5 w-5 text-white" />,
-    title: "Perfect Quiz Score",
-    description: "Achieved 100% on a course quiz",
-  },
-  {
-    icon: <BookOpen className="h-5 w-5 text-white" />,
-    title: "Learning Streak",
-    description: "Completed lessons for 7 consecutive days",
-  },
-  {
-    icon: <GraduationCap className="h-5 w-5 text-white" />,
-    title: "Web Development Certificate",
-    description: "Earned the Web Development Fundamentals certificate",
-  },
-]
 
 const enrolledCourses = [
   {
@@ -590,93 +651,5 @@ const certificates = [
     issueDate: "July 10, 2023",
     type: "Course Completion",
     credentialId: "RWD-2023-9012-IJKL",
-  },
-]
-
-const participatedContests = [
-  {
-    id: "css-battle",
-    title: "CSS Battle 2023",
-    description: "Recreate complex designs using only HTML and CSS",
-    date: "April 25, 2023",
-    placement: "1st Place",
-    score: 98,
-    participants: 187,
-    certificateId: "css-battle-cert-2023",
-    prize: "$500",
-    skills: ["CSS", "Design", "Problem Solving", "Optimization"],
-  },
-  {
-    id: "javascript-challenge",
-    title: "JavaScript Coding Challenge",
-    description: "Test your JavaScript skills with real-world problems",
-    date: "May 10, 2023",
-    placement: "2nd Place",
-    score: 95,
-    participants: 203,
-    certificateId: "js-challenge-cert-2023",
-    prize: "$250",
-    skills: ["JavaScript", "Algorithms", "Data Structures", "Performance"],
-  },
-  {
-    id: "web-accessibility",
-    title: "Web Accessibility Hackathon",
-    description: "Create accessible web components following WCAG guidelines",
-    date: "May 8, 2023",
-    placement: "Honorable Mention",
-    score: 88,
-    participants: 78,
-    certificateId: "hackathon-cert-2023",
-    specialAward: "Accessibility Innovation Award",
-    skills: ["Accessibility", "ARIA", "Semantic HTML", "User Experience"],
-  },
-]
-
-const activities = [
-  {
-    icon: <BookOpen className="h-4 w-4" />,
-    title: "Completed Lesson",
-    description: "JavaScript Basics in Web Development Fundamentals",
-    time: "Today at 10:30 AM",
-    type: "lesson_completion",
-    courseId: "web-development",
-    lessonId: "js-basics",
-  },
-  {
-    icon: <CheckCircle className="h-4 w-4" />,
-    title: "Passed Quiz",
-    description: "HTML Fundamentals Quiz with 90% score",
-    time: "Yesterday at 3:15 PM",
-    type: "quiz_completion",
-    courseId: "web-development",
-    quizId: "html-fundamentals",
-    score: 90,
-  },
-  {
-    icon: <Award className="h-4 w-4" />,
-    title: "Earned Certificate",
-    description: "Completed UI/UX Design Principles course",
-    time: "2 days ago at 5:45 PM",
-    type: "certificate_earned",
-    certificateId: "responsive-design-cert-2023",
-    courseId: "ui-ux-design",
-  },
-  {
-    icon: <Trophy className="h-4 w-4" />,
-    title: "Contest Participation",
-    description: "Participated in CSS Battle 2023 and won 1st place",
-    time: "April 25, 2023 at 2:30 PM",
-    type: "contest_participation",
-    contestId: "css-battle",
-    placement: "1st Place",
-    certificateId: "css-battle-cert-2023",
-  },
-  {
-    icon: <Clock className="h-4 w-4" />,
-    title: "Started Course",
-    description: "Enrolled in Introduction to Data Science",
-    time: "1 week ago at 9:20 AM",
-    type: "course_enrollment",
-    courseId: "data-science",
   },
 ]

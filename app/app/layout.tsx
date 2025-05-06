@@ -12,13 +12,13 @@ import "./globals.css"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "EduLearn Platformasi",
-  description: "O'z tezoringizda o'rganish uchun keng qamrovli kurslar",
+  title: "EduLearn Platform",
+  description: "Learn at your own pace with our comprehensive courses",
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="uz" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body className={cn("min-h-screen bg-background font-sans antialiased", inter.className)}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="flex min-h-screen flex-col">
@@ -30,56 +30,56 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </Link>
                 <nav className="hidden md:flex items-center gap-6">
                   <Link href="/" className="text-sm font-medium hover:underline underline-offset-4">
-                    Bosh sahifa
+                    Home
                   </Link>
                   <Link href="/courses" className="text-sm font-medium hover:underline underline-offset-4">
-                    Kurslar
+                    Courses
                   </Link>
                   <Link href="/contests" className="text-sm font-medium hover:underline underline-offset-4">
-                    Musobaqalar
+                    Contests
                   </Link>
                   <Link href="/problems" className="text-sm font-medium hover:underline underline-offset-4">
-                    Masalalar
+                    Problems
                   </Link>
                   <Link href="/certificates" className="text-sm font-medium hover:underline underline-offset-4">
-                    Sertifikatlar
+                    Certificates
                   </Link>
                   <Link href="/about" className="text-sm font-medium hover:underline underline-offset-4">
-                    Biz haqimizda
+                    About
                   </Link>
                 </nav>
                 <div className="flex items-center gap-2">
                   <Link href="/profile">
                     <Button variant="ghost" size="icon">
                       <User className="h-5 w-5" />
-                      <span className="sr-only">Profil</span>
+                      <span className="sr-only">Profile</span>
                     </Button>
                   </Link>
                   <Link href="/statistics">
                     <Button variant="ghost" size="icon">
                       <LayoutDashboard className="h-5 w-5" />
-                      <span className="sr-only">Statistika</span>
+                      <span className="sr-only">Statistics</span>
                     </Button>
                   </Link>
                   <Link href="/certificates">
                     <Button variant="ghost" size="icon">
                       <Award className="h-5 w-5" />
-                      <span className="sr-only">Sertifikatlar</span>
+                      <span className="sr-only">Certificates</span>
                     </Button>
                   </Link>
                   <Link href="/problems">
                     <Button variant="ghost" size="icon">
                       <Code className="h-5 w-5" />
-                      <span className="sr-only">Masalalar</span>
+                      <span className="sr-only">Problems</span>
                     </Button>
                   </Link>
                   <Link href="/login">
                     <Button variant="outline" size="sm">
-                      Kirish
+                      Log in
                     </Button>
                   </Link>
                   <Link href="/signup">
-                    <Button size="sm">Ro'yxatdan o'tish</Button>
+                    <Button size="sm">Sign up</Button>
                   </Link>
                 </div>
               </div>
@@ -93,13 +93,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 </div>
                 <nav className="flex items-center gap-4 text-sm">
                   <Link href="#" className="text-muted-foreground hover:text-foreground">
-                    Shartlar
+                    Terms
                   </Link>
                   <Link href="#" className="text-muted-foreground hover:text-foreground">
-                    Maxfiylik
+                    Privacy
                   </Link>
                   <Link href="#" className="text-muted-foreground hover:text-foreground">
-                    Cookie-fayllar
+                    Cookies
                   </Link>
                 </nav>
               </div>
