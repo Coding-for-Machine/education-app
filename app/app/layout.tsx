@@ -14,7 +14,6 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata = {
   title: "EduLearn Platform",
   description: "Learn at your own pace with our comprehensive courses",
-    generator: 'v0.dev'
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
